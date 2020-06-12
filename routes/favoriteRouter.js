@@ -67,10 +67,16 @@ favouriteRouter.route('/')
                 // }
                 user.save()
                     .then((userFavs) => {
-                        res.statusCode = 201;
-                        res.setHeader("Content-Type", "application/json");
-                        res.json(userFavs);
-                        console.log("Favourites Created");
+                        Favourites.findById(user._id)
+                        .populate('user')
+                        .populate('dishes')
+                        .then((userFavs) => {
+                            res.statusCode = 201;
+                            res.setHeader("Content-Type", "application/json");
+                            res.json(userFavs);
+                            console.log("Favourites Created");
+                        })
+                      
                     }, (err) => next(err))
                     .catch((err) => next(err));
                 
@@ -153,10 +159,15 @@ favouriteRouter.route('/:dishId')
                 
                 user.save()
                     .then((userFavs) => {
-                        res.statusCode = 201;
-                        res.setHeader("Content-Type", "application/json");
-                        res.json(userFavs);
-                        console.log("Favourites Created");
+                        Favourites.findById(user._id)
+                        .populate('user')
+                        .populate('dishes')
+                        .then((userFavs) => {
+                            res.statusCode = 201;
+                            res.setHeader("Content-Type", "application/json");
+                            res.json(userFavs);
+                            console.log("Favourites Created");
+                        })
                     }, (err) => next(err))
                     .catch((err) => next(err));
 
@@ -180,9 +191,15 @@ favouriteRouter.route('/:dishId')
                 user.dishes = user.dishes.filter((dishid) => dishid._id.toString() !== req.params.dishId);
                 user.save()
                     .then((result) => {
-                        res.statusCode = 200;
-                        res.setHeader("Content-Type", "application/json");
-                        res.json(result);
+                        Favourites.findById(user._id)
+                        .populate('user')
+                        .populate('dishes')
+                        .then((userFavs) => {
+                            res.statusCode = 201;
+                            res.setHeader("Content-Type", "application/json");
+                            res.json(userFavs);
+                            console.log("Favourites Created");
+                        })
                     }, (err) => next(err));
                 
             } else {
